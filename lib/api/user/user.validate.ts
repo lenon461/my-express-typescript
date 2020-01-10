@@ -29,13 +29,11 @@ const UserSchema = Joi.object({
 // Also -
 
 export const validateUser = (user: UserType) => {
-    console.log("validateUser1");
-    try {
-        console.log("validateUser2");
-        const value = UserSchema.validate(user);
-    } catch (error) {
-        console.log("validateUser3");
-
-        throw new Error(error);
+    const { error, value } = UserSchema.validate(user);
+    if (error) {
+        console.error(error.message);
+        throw error;
+    } else {
+        return value;
     }
 };
