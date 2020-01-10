@@ -6,6 +6,7 @@ import winston from "winston";
 const app = express();
 
 app.use(morgan("dev"));
+app.use(express.json());
 
 import router from "./api/index.route";
 app.use("/", router);
@@ -22,10 +23,8 @@ app.use((err: createError.HttpError, req: express.Request, res: express.Response
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get("env") === "development" ? err : {};
-
     // render the error page
     res.status(err.status || 500);
-    res.render("error");
+    res.send(err);
 });
 export default app;
- 

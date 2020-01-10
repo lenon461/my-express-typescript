@@ -7,5 +7,16 @@ export const SignUp = async (user: UserType) => {
         return userRecord;
     } catch (error) {
         console.error(error);
+        return error;
+    }
+};
+
+export const ReadUser = async (userId: string) => {
+    try {
+        const userRecord = await UserModel.findOne({where : {id: userId}});
+        return userRecord;
+    } catch (error) {
+        console.error(error);
+        return error;
     }
 };

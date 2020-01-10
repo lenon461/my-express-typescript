@@ -1,5 +1,6 @@
 import Joi from "@hapi/joi";
 import { NextFunction, Request, Response } from "express";
+import UserType from "../../types/UserType";
 
 const UserSchema = Joi.object({
 
@@ -18,33 +19,23 @@ const UserSchema = Joi.object({
     password: Joi.string()
         .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
 
-    repeat_password: Joi.ref("password"),
+    // repeat_password: Joi.ref("password"),
 
     email: Joi.string()
         .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } }),
-})
-    .with("password", "repeat_password");
+});
+// .with("password", "repeat_password");
 
 // Also -
 
-export const validateUser = (req: Request, res: Response, next: NextFunction) => {
-    const user = req.body || {
-        id: "jslee3",
-        name: "ljs",
-        passwd: "1234",
-        repeat_password: Joi.ref("password"),
-        email: "jslee02@korens.com",
-    };
-    const value = UserSchema.validate(user);
-    console.log(value);
+export const validateUser = (user: UserType) => {
+    console.log("validateUser1");
+    try {
+        console.log("validateUser2");
+        const value = UserSchema.validate(user);
+    } catch (error) {
+        console.log("validateUser3");
 
-    if (value.error) {
-        console.log("valueerror");
-
-        next({status: 401, message: value.error, properties: "xx"});
-    } else {
-        console.log("no error");
-
-        next();
+        throw new Error(error);
     }
 };
