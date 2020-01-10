@@ -8,6 +8,7 @@ export const getTask = async (req: Request, res: Response, next: NextFunction) =
         const task = await TaskService.ReadTask(userId);
         res.json(task);
     } catch (error) {
+        error.status = 400;
         next(error);
     }
 };
@@ -18,6 +19,7 @@ export const postTask = async (req: Request, res: Response, next: NextFunction) 
         const task = await TaskService.CreateTask(newtask);
         res.json(task);
     } catch (error) {
-        next({ status: 400, error: String(error) });
+        error.status = 400;
+        next(error);
     }
 };

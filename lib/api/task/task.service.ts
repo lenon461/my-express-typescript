@@ -7,7 +7,7 @@ export const ReadTask = async (userId: string) => {
         return taskRecord;
     } catch (error) {
         console.error(error);
-        return error;
+        throw error;
     }
 };
 export const CreateTask = async (task: TaskType) => {
@@ -15,7 +15,7 @@ export const CreateTask = async (task: TaskType) => {
         const taskRecord = await TaskModel.create(task);
         return taskRecord;
     } catch (error) {
-        console.error("service Error" + error);
-        throw new Error(error);
+        console.error(error);
+        throw error;
     }
 };
