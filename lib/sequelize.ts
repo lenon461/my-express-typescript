@@ -1,14 +1,13 @@
-import { config } from "dotenv";
 import { resolve } from "path";
 import { Sequelize } from "sequelize-typescript";
+import config from "./config/config";
 
-config({ path: resolve(__dirname, "../.env") });
 const sequelize =  new Sequelize({
-    database: process.env.DB_NAME,
-    dialect: "postgres",
-    host: "192.168.90.200",
-    username: "postgres",
-    password: "nodejs15",
+    database: config.database,
+    dialect: "postgres" || config.dialect,
+    host: config.host,
+    username: config.username,
+    password: config.password,
     storage: ":memory:",
     models: [__dirname + "/models"],
     logging: false,
