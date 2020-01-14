@@ -4,6 +4,10 @@ import UserRouter from "./user/user.route";
 
 const router = Router();
 
+import * as UserController from "./user/user.ctrl";
+
+router.post("/SignUp", UserController.SignUp);
+router.post("/SignIn", UserController.SignIn);
 router.use("/task", TaskRouter);
 router.use("/user", UserRouter);
 

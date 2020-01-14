@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { validateUser } from "../user/user.validate";
+import { validateUser, verifyToken } from "../user/user.validate";
 
-const validate = (req: Request, res: Response, next: NextFunction) => {
+export const validate = (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = validateUser(req.body);
         next();

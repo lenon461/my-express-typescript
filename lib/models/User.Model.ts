@@ -12,11 +12,14 @@ export default class User extends Model<User> {
   public name: string;
 
   @Column
-  public passwd: string;
+  public password: string;
 
   @IsEmail
   @Column
   public email: string;
+
+  @Column
+  public refreshtoken: string;
 
   @HasMany(() => TaskModel)
   public posts: TaskModel[];

@@ -1,22 +1,31 @@
+import jwt from "jsonwebtoken";
+import config from "../../config/config";
 import UserModel from "../../models/User.Model";
-import UserType from "../../types/UserType";
-
-export const SignUp = async (user: UserType) => {
+export const IssueToken = async (payload: object) => {
     try {
-        const userRecord = await UserModel.create(user);
-        return userRecord;
+        const accesstoken = jwt.sign(payload, config.jwtSecret, {expiresIn: "60m"});
+        const refreshtoken = jwt.sign(payload, config.jwtSecret, {expiresIn: "14d"});
+        return {accesstoken, refreshtoken, expiresIn: 3600};
     } catch (error) {
         console.error(error);
-        throw error;
+        throw Error("Issuing Token is failed");
     }
 };
 
-export const ReadUser = async (userId: string) => {
+export const VerifyUser = async (UserInfo: {id: string, password: string}) => {
     try {
-        const userRecord = await UserModel.findOne({ where: { id: userId } });
-        return userRecord;
+        const InputPassword = UserInfo.id;
+        const userRecord = await UserModel.findOne({
+            where: { id: UserInfo.id },
+            attributes: ["password"],
+        });
+        if (InputPassword !== userRecord?.password) {
+            return true;
+        } else {
+            throw new Error("id || passwd is wrong");
+        }
     } catch (error) {
         console.error(error);
-        throw error;
+        throw Error("Read User is failed");
     }
 };
