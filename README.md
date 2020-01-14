@@ -19,7 +19,7 @@ DBaccess 로직은 *.service.ts 에 정의한 후 컨트롤러 로직에서 호�
  
 #### 2020년 1월 14일 작업노트
 
-- [TODO] JWT / access token & refresh token 인증 구현
+- [TODO] JWT / access token & refresh token 인증 구현  
 - [TODO] Test code 작성 (ex, jest, mocha) not decided 
 
 - [?] JWT 프로세스 구현중  
@@ -38,4 +38,4 @@ refreshtoken 을 담아서 /refreshAccesstoken으로 보낼경우 새 accesstoke
 - [?] refreshtoken을 담아서 보내도 일단 모든요청 처리가능  
 
 - [TODO] 다른 라우터에도 dao 로직 통합이 필요  
-
+- [?] 타입스크립트에 존재의의는 모든코드에 클래스화?
