@@ -13,7 +13,7 @@ const sequelize = new Sequelize({
     models: [__dirname + "/models"],
     logging: false,
     dialectOptions: {
-        connectTimeout: 60000,
+        connectTimeout: 10000,
     },
 });
 export default sequelize;
