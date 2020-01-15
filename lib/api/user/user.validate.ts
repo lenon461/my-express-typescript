@@ -3,7 +3,6 @@ import { NextFunction, Request, Response } from "express";
 import UserType from "../../types/UserType";
 
 const UserSchema = Joi.object({
-
     id: Joi.string()
         .alphanum()
         .min(3)
@@ -16,13 +15,11 @@ const UserSchema = Joi.object({
         .max(30)
         .required(),
 
-    password: Joi.string()
-        .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
+    password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
 
     // repeat_password: Joi.ref("password"),
 
-    email: Joi.string()
-        .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } }),
+    email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } }),
 });
 // .with("password", "repeat_password");
 

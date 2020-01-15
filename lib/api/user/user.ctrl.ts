@@ -20,13 +20,14 @@ export const SignIn = async (req: Request, res: Response, next: NextFunction) =>
     const userId = req.body.id;
     try {
         await UserService.VerifyUser(UserInfo);
-        const value: {accesstoken: string, refreshtoken: string }
-            = await UserService.IssueToken(UserInfo);
+        const value: { accesstoken: string; refreshtoken: string } = await UserService.IssueToken(UserInfo);
         const [updatedRows, userRecord] = await UserModel.update(value, {
             where: { id: userId },
             fields: ["refreshtoken"],
         });
-        if (!updatedRows) { throw new Error("User Token Update fail"); }
+        if (!updatedRows) {
+            throw new Error("User Token Update fail");
+        }
         res.status(201);
         res.json(value);
     } catch (error) {
@@ -54,16 +55,15 @@ export const ReissueAccessToken = async (req: Request, res: Response, next: Next
         delete UserInfo.iat;
         delete UserInfo.exp;
         const userRecord = await UserModel.findOne({
-                where: { id: UserInfo.id },
-                attributes: ["refreshtoken"],
+            where: { id: UserInfo.id },
+            attributes: ["refreshtoken"],
         });
         console.log(userRecord?.refreshtoken);
 
-        const {accesstoken, refreshtoken}
-            = await UserService.IssueToken(UserInfo);
+        const { accesstoken, refreshtoken } = await UserService.IssueToken(UserInfo);
 
         if (userRecord?.refreshtoken === req.headers.authorization) {
-            res.json({accesstoken, expiresIn: 3600});
+            res.json({ accesstoken, expiresIn: 3600 });
         } else {
             res.status(401);
             res.send("Invalid token");

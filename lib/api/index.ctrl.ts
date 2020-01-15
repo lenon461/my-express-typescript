@@ -1,4 +1,4 @@
-import {NextFunction, Request, Response} from "express";
+import { NextFunction, Request, Response } from "express";
 
 export default class Controller {
     public req: Request;

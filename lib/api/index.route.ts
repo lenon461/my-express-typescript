@@ -1,10 +1,10 @@
-import {Router} from "express";
+import { Router } from "express";
 import TaskRouter from "./task/task.route";
 import UserRouter from "./user/user.route";
 
-const router = Router();
-
 import * as UserController from "./user/user.ctrl";
+
+const router = Router();
 
 router.post("/SignUp", UserController.SignUp);
 router.post("/SignIn", UserController.SignIn);
