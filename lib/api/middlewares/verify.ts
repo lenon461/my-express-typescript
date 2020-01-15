@@ -6,7 +6,7 @@ const verify = (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
     try {
         const result = verifyToken(token);
-        req.body = result;
+        req.body.decoded = result;
         next();
     } catch (error) {
         error.status = 401;

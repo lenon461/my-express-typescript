@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import Controller from "../index.ctrl";
-import * as TaskService from "./task.service";
+import TaskModel from "../../models/Task.Model";
 
 export const getTask = async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.query.userId;
+    const userId = req.body.decoded.id;
     try {
-        const task = await TaskService.ReadTask(userId);
-        res.json(task);
+        const taskRecord = await TaskModel.findOne({ where: { userId } });
+        res.json(taskRecord);
     } catch (error) {
         error.status = 400;
         next(error);
@@ -16,8 +15,8 @@ export const getTask = async (req: Request, res: Response, next: NextFunction) =
 export const postTask = async (req: Request, res: Response, next: NextFunction) => {
     const newtask = req.body;
     try {
-        const task = await TaskService.CreateTask(newtask);
-        res.json(task);
+        const taskRecord = await TaskModel.create(newtask);
+        res.json(taskRecord);
     } catch (error) {
         error.status = 400;
         next(error);

@@ -37,7 +37,7 @@ export const SignIn = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 export const ShowProfile = async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.body.id;
+    const userId = req.body.decoded.id;
     try {
         const userRecord = await UserModel.findOne({
             where: { id: userId },
@@ -50,7 +50,7 @@ export const ShowProfile = async (req: Request, res: Response, next: NextFunctio
 };
 
 export const ReissueAccessToken = async (req: Request, res: Response, next: NextFunction) => {
-    const UserInfo = req.body;
+    const UserInfo = req.body.decoded;
     try {
         delete UserInfo.iat;
         delete UserInfo.exp;
@@ -58,7 +58,6 @@ export const ReissueAccessToken = async (req: Request, res: Response, next: Next
             where: { id: UserInfo.id },
             attributes: ["refreshtoken"],
         });
-        console.log(userRecord?.refreshtoken);
 
         const { accesstoken, refreshtoken } = await UserService.IssueToken(UserInfo);
 

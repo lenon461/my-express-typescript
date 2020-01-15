@@ -3,11 +3,14 @@ import TaskRouter from "./task/task.route";
 import UserRouter from "./user/user.route";
 
 import * as UserController from "./user/user.ctrl";
+import verify from "./middlewares/verify";
 
 const router = Router();
 
 router.post("/SignUp", UserController.SignUp);
 router.post("/SignIn", UserController.SignIn);
+
+router.use(verify);
 router.use("/task", TaskRouter);
 router.use("/user", UserRouter);
 

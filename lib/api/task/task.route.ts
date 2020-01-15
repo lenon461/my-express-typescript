@@ -1,8 +1,8 @@
-import {Router} from "express";
-import * as taskController from "./task.ctrl";
+import { Router } from "express";
+import * as TaskController from "./task.ctrl";
 const router = Router();
 
-router.get("/", taskController.getTask);
-router.post("/", taskController.postTask);
+router.get("/", TaskController.getTask);
+router.post("/", TaskController.postTask);
 
 export default router;
