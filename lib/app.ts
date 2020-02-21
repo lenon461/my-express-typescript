@@ -2,7 +2,6 @@ import { log } from "console";
 import express from "express";
 import createError from "http-errors";
 import morgan from "morgan";
-import winston from "winston";
 const app = express();
 
 app.use(morgan("dev"));

@@ -7,7 +7,7 @@ export default class Task extends Model<Task> {
     public name: string;
 
     @Column
-    public state: State;
+    public state: State.Pending;
 
     @ForeignKey(() => UserModel)
     @Column
@@ -17,7 +17,7 @@ export default class Task extends Model<Task> {
     public user!: UserModel;
 }
 
-enum State {
+const enum State {
     Scheduled = "Scheduled",
     Proceeding = "Proceeding",
     Pending = "Pending",
